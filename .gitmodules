@@ -1,0 +1,3 @@
+[submodule "xcconfig/pyxcrunhelper"]
+	path = xcconfig/pyxcrunhelper
+	url = git@github.com:samdmarshall/pyxcrunhelper.git
