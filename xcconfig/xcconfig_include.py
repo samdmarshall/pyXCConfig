@@ -1,5 +1,4 @@
 from .xcconfig_item_base import *
-from xcrunHelper.xcrun import xcrun
 import os
 
 class xcconfig_include(xcconfig_item_base):
@@ -14,7 +13,11 @@ class xcconfig_include(xcconfig_item_base):
         quote_end = path.find('"');
         path = path[:quote_end];
         if path.startswith('<DEVELOPER_DIR>'):
-            path = path.replace('<DEVELOPER_DIR>', xcrun.resolve_developer_path(), 1);
+            developer_directory = os.environ.get('DEVELOPER_DIR')
+            if not developer_directory:
+                print('Could not find defined environment variable "DEVELOPER_DIR"!')
+                raise Exception
+            path = path.replace('<DEVELOPER_DIR>', developer_directory, 1);
         if path[0] != '/':
             path = os.path.join(base_path, path);
         print path
